@@ -17,7 +17,7 @@ export default function CityHome({ trip, markers, items }: CityHomeProps) {
   const [mode, setMode] = useState<ViewMode>("map");
 
   return (
-    <div className="relative mx-auto flex h-dvh max-w-md flex-col overflow-hidden bg-white">
+    <div className="relative mx-auto flex h-dvh w-full max-w-md flex-col overflow-hidden bg-white">
       <div className="relative flex-1 overflow-hidden">
         {mode === "map" ? (
           <CityMapView markers={markers} />

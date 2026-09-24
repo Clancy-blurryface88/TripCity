@@ -14,13 +14,13 @@ export const parisTrip: Trip = {
 };
 
 export const parisMarkers: MapMarker[] = [
-  { id: "m-flights", category: "flights", x: 18, y: 13, count: 2 },
-  { id: "m-attractions", category: "attractions", x: 49, y: 50, count: 4 },
-  { id: "m-transport", category: "transport", x: 55, y: 60, count: 3 },
-  { id: "m-hotels", category: "hotels", x: 76, y: 72, count: 1 },
-  { id: "m-carRental", category: "carRental", x: 90, y: 70, count: 1 },
-  { id: "m-checklist", category: "checklist", x: 34, y: 86, count: 8 },
-  { id: "m-insurance", category: "insurance", x: 16, y: 85, count: 1 },
+  { id: "m-flights", category: "flights", x: 32, y: 17, count: 2 },
+  { id: "m-hotels", category: "hotels", x: 65, y: 27, count: 1 },
+  { id: "m-transport", category: "transport", x: 27, y: 36, count: 3 },
+  { id: "m-attractions", category: "attractions", x: 72, y: 49, count: 4 },
+  { id: "m-insurance", category: "insurance", x: 19, y: 75, count: 1 },
+  { id: "m-carRental", category: "carRental", x: 87, y: 73, count: 1 },
+  { id: "m-checklist", category: "checklist", x: 60, y: 86, count: 8 },
 ];
 
 export const parisItinerary: ItineraryItem[] = [

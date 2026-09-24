@@ -24,11 +24,8 @@ export default function ItineraryTimeline({ trip, items }: ItineraryTimelineProp
 
   return (
     <div className="absolute inset-0 flex flex-col bg-slate-50">
-      <div className="px-5 pt-[calc(env(safe-area-inset-top,0px)+18px)]">
+      <div className="px-5 pt-[calc(env(safe-area-inset-top,0px)+92px)]">
         <h1 className="text-xl font-extrabold text-slate-800">המסלול שלי</h1>
-        <p className="text-sm text-slate-500">
-          {days.length} ימים · {formatDay(days[0])}
-        </p>
       </div>
 
       <div className="mt-4 flex items-center justify-center gap-2 px-4">
