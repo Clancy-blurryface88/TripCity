@@ -5,22 +5,23 @@ import BottomNav from "../layout/BottomNav";
 import FloatingAIButton from "../layout/FloatingAIButton";
 import CityMapView from "./CityMapView";
 import ItineraryTimeline from "./ItineraryTimeline";
-import type { ItineraryItem, MapMarker, Trip, ViewMode } from "../../types/domain";
+import { getCityVisual } from "../../data/cityRegistry";
+import type { ItineraryItem, Trip, ViewMode } from "../../types/domain";
 
 interface CityHomeProps {
   trip: Trip;
-  markers: MapMarker[];
   items: ItineraryItem[];
 }
 
-export default function CityHome({ trip, markers, items }: CityHomeProps) {
+export default function CityHome({ trip, items }: CityHomeProps) {
   const [mode, setMode] = useState<ViewMode>("map");
+  const city = getCityVisual(trip.cityKey);
 
   return (
     <div className="relative mx-auto flex h-dvh w-full max-w-md flex-col overflow-hidden bg-white">
       <div className="relative flex-1 overflow-hidden">
         {mode === "map" ? (
-          <CityMapView markers={markers} />
+          <CityMapView city={city} />
         ) : (
           <ItineraryTimeline trip={trip} items={items} />
         )}

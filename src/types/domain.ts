@@ -73,6 +73,7 @@ export interface Trip {
   id: string;
   name: string;
   destinationCity: string;
+  cityKey: string; // lookup key into the city visuals registry, e.g. "paris"
   country: string;
   countryCode: string;
   landmark: string;
@@ -104,4 +105,18 @@ export interface MapMarker {
   x: number; // percentage 0-100
   y: number; // percentage 0-100
   count: number;
+}
+
+export interface CityVisual {
+  key: string;
+  label: string;
+  /** null while we don't have an illustration yet — renders the generic fallback */
+  backgroundImage: string | null;
+  /**
+   * true only for legacy assets where the category circles are baked into the
+   * image itself. New cities should always be clean illustrations with
+   * hasBakedMarkers left unset, so real <CategoryMarker> pins render on top.
+   */
+  hasBakedMarkers?: boolean;
+  markers: MapMarker[];
 }

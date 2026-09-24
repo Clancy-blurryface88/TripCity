@@ -1,9 +1,10 @@
-import type { ItineraryItem, MapMarker, Trip } from "../types/domain";
+import type { ItineraryItem, Trip } from "../types/domain";
 
 export const parisTrip: Trip = {
   id: "trip-paris-2027",
   name: "טיול לפריז",
   destinationCity: "Paris",
+  cityKey: "paris",
   country: "צרפת",
   countryCode: "FR",
   landmark: "eiffel-tower",
@@ -12,16 +13,6 @@ export const parisTrip: Trip = {
   timezone: "Europe/Paris",
   weatherTempC: 18,
 };
-
-export const parisMarkers: MapMarker[] = [
-  { id: "m-flights", category: "flights", x: 32, y: 17, count: 2 },
-  { id: "m-hotels", category: "hotels", x: 65, y: 27, count: 1 },
-  { id: "m-transport", category: "transport", x: 27, y: 36, count: 3 },
-  { id: "m-attractions", category: "attractions", x: 72, y: 49, count: 4 },
-  { id: "m-insurance", category: "insurance", x: 19, y: 75, count: 1 },
-  { id: "m-carRental", category: "carRental", x: 87, y: 73, count: 1 },
-  { id: "m-checklist", category: "checklist", x: 60, y: 86, count: 8 },
-];
 
 export const parisItinerary: ItineraryItem[] = [
   {
