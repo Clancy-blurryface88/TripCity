@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
+
+  --color-sky-top: #bfe3ff;
+  --color-sky-bottom: #eaf6ff;
+  --color-water: #6fb7e0;
+  --color-island: #d9c48f;
+  --color-grass: #8bc48a;
+  --color-grass-dark: #6fae72;
+
+  --color-flights: #3b82f6;
+  --color-hotels: #a855f7;
+  --color-transport: #22c55e;
+  --color-carRental: #f97316;
+  --color-attractions: #ef4444;
+  --color-insurance: #14b8a6;
+  --color-checklist: #8b5cf6;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: #f4f7fb;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+* {
+  box-sizing: border-box;
+}
