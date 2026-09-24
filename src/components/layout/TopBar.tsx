@@ -8,6 +8,11 @@ function formatRange(start: string, end: string) {
   return `${fmt(s)} – ${fmt(e)}`;
 }
 
+function tripLengthDays(start: string, end: string) {
+  const ms = new Date(end).getTime() - new Date(start).getTime();
+  return Math.round(ms / 86_400_000) + 1;
+}
+
 interface TopBarProps {
   trip: Trip;
 }
@@ -25,6 +30,9 @@ export default function TopBar({ trip }: TopBarProps) {
             <ChevronDown size={14} className="text-slate-400" />
           </div>
           <p className="text-[11px] text-slate-500">{formatRange(trip.startDate, trip.endDate)}</p>
+          <p className="text-[10px] font-semibold text-blue-500">
+            {tripLengthDays(trip.startDate, trip.endDate)} ימים
+          </p>
         </div>
       </div>
 
