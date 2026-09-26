@@ -1,32 +1,35 @@
-# React + TypeScript + Vite
+# Trip City
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+הטיול שלך כעיר אחת. React + TypeScript + Tailwind PWA, Hebrew RTL, mobile first.
 
-Currently, two official plugins are available:
+## Phase 1 (this version)
+- City Home: isometric Paris with the Eiffel Tower, 7 small category markers, bottom sheets.
+- Map / Itinerary toggle, day-by-day timeline ("יום X מתוך N"), conflict detection (sample overlap on day 3).
+- Floating "✨ בנה לי את המסלול" button: shows anchors vs flexible items. The AI engine is not connected yet (Phase 5).
+- Desktop: map 60% | panel 40%.
+- All times shown in the trip timezone (Europe/Paris), never the phone timezone.
+- Sample data only (`src/data/paris.ts`). No fake production APIs: external services sit behind interfaces in `src/services/ports.ts` and throw `NotConnectedError` until wired.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Run
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm test           # vitest: domain, AI JSON validation, City Home UI
+npm run build      # typecheck + production build
 ```
+Deep links for testing: `?mode=itinerary&day=3`, `?sheet=hotels`, `?ai=1`.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Backend (ready to connect)
+- `supabase/migrations/0001_init.sql`: all tables, RLS on every table, private `trip-documents` bucket with per-user folders.
+- Copy `.env.example` to `.env.local` and set `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`.
+- LLM / OCR / maps keys go only into Supabase Edge Function secrets. The AI planner must return JSON matching `src/ai/schema.ts`; `parsePlan` validates it and rejects plans that move locked anchors.
+
+## Structure
+- `src/domain` types, time (timezone), conflicts, progress, cities
+- `src/city` isometric projection, layout, scene, landmarks (Paris + generic fallback)
+- `src/components` app shell, sheets, itinerary, progress
+- `src/services` ports, mock repository, Supabase adapters
+- `src/ai` structured output schema
+
+## Next phases
+2 Flights/Hotels/Activities forms · 3 Documents + OCR · 4 Drag & drop + editing · 5 AI planner · 6 Checklist/notifications. Landmarks for Rome, London, New York and Tokyo plug into `src/city/landmarks`.

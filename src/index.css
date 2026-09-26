@@ -1,49 +1,46 @@
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap");
-@import "tailwindcss";
-
-@theme {
-  --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
-
-  --color-sky-top: #bfe3ff;
-  --color-sky-bottom: #eaf6ff;
-  --color-water: #6fb7e0;
-  --color-island: #d9c48f;
-  --color-grass: #8bc48a;
-  --color-grass-dark: #6fae72;
-
-  --color-flights: #3b82f6;
-  --color-hotels: #a855f7;
-  --color-transport: #22c55e;
-  --color-carRental: #f97316;
-  --color-attractions: #ef4444;
-  --color-insurance: #14b8a6;
-  --color-checklist: #8b5cf6;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
-body,
-#root {
-  height: 100%;
-}
-
 body {
-  background: #f4f7fb;
-  font-family: var(--font-sans);
+  overscroll-behavior: auto !important;
   -webkit-tap-highlight-color: transparent;
-  overscroll-behavior-y: none;
+}
+body {
+  @apply bg-[#eaf3ff] font-sans text-ink antialiased;
 }
 
-* {
-  box-sizing: border-box;
+@keyframes tc-bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-3px) } }
+@keyframes tc-pulse { 0%,100% { opacity: .25 } 50% { opacity: .05 } }
+@keyframes tc-cloud { from { transform: translateX(-60px) } to { transform: translateX(60px) } }
+@keyframes tc-boat { from { transform: translate(0, 0) } to { transform: translate(var(--bx), var(--by)) } }
+@keyframes tc-flag { 0%,100% { transform: skewY(0) } 50% { transform: skewY(-8deg) } }
+@keyframes tc-beacon { 0%,100% { opacity: .9 } 50% { opacity: .35 } }
+
+.tc-bob { animation: tc-bob 3.2s ease-in-out infinite; transform-box: fill-box; }
+.tc-pulse { animation: tc-pulse 1.8s ease-in-out infinite; }
+.tc-cloud { animation: tc-cloud 80s ease-in-out infinite alternate; }
+.tc-boat { animation: tc-boat 60s linear infinite; }
+.tc-flag { animation: tc-flag 2s ease-in-out infinite; transform-box: fill-box; transform-origin: left center; }
+.tc-beacon { animation: tc-beacon 2.4s ease-in-out infinite; }
+.tc-marker:focus-visible circle:nth-of-type(3) { stroke: #1f2a44; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tc-bob, .tc-pulse, .tc-cloud, .tc-boat, .tc-flag, .tc-beacon { animation: none; }
 }
 
-@keyframes marker-in {
-  from {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+/* ---- Themed sub-pages ---- */
+@keyframes tc-kenburns { from { transform: scale(1.02) translate3d(0, 0, 0); } to { transform: scale(1.12) translate3d(-1.5%, 1%, 0); } }
+.tc-kenburns { animation: tc-kenburns 14s ease-in-out infinite alternate; transform-origin: 50% 60%; }
+@keyframes tc-fly { 0% { transform: translate(-30px, 18px) rotate(-8deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translate(calc(100vw + 30px), -30px) rotate(-8deg); opacity: 0; } }
+.tc-fly { animation: tc-fly 7s linear infinite; }
+@keyframes tc-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.tc-float { animation: tc-float 3.2s ease-in-out infinite; }
+.tc-perf { background-image: linear-gradient(90deg, rgba(148,160,184,.55) 50%, transparent 0); background-size: 10px 2px; background-repeat: repeat-x; background-position: center; }
+.tc-flip { transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.tc-flip.is-flipped { transform: rotateY(180deg); }
+.tc-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.tc-back { transform: rotateY(180deg); }
+.tc-paper { background-color: #fffdf8; background-image: radial-gradient(rgba(31,42,68,.035) 1px, transparent 1px); background-size: 6px 6px; }
+@media (prefers-reduced-motion: reduce) { .tc-kenburns, .tc-fly, .tc-float { animation: none; } .tc-flip { transition: none; } }

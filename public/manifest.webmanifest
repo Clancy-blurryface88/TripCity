@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "Trip City",
+  "short_name": "Trip City",
+  "description": "הטיול שלך כעיר אחת",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eaf3ff",
+  "theme_color": "#eaf3ff",
+  "categories": ["travel", "productivity"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "המסלול", "short_name": "מסלול", "url": "/?mode=itinerary", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "המסמכים", "short_name": "מסמכים", "url": "/?nav=documents", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "צ׳ק-ליסט", "short_name": "צ׳ק-ליסט", "url": "/?sheet=checklist", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
