@@ -34,6 +34,7 @@ import { usePwa } from '@/pwa/usePwa';
 import { useAuth } from '@/services/auth';
 import { loadCloudTrip, saveCloudTrip } from '@/services/cloudStore';
 import { AccountButton, type SyncState } from '@/components/AccountButton';
+import { LoginScreen } from '@/components/LoginScreen';
 
 
 function readParams() {
@@ -204,7 +205,9 @@ export function App({ repository = defaultRepository, tripId = 'trip-paris-2027'
 
   useReminderScheduler(bundle, prefs, (r) => showToast(r.title, r.body));
 
-  if (!bundle || !summary) {
+  if (auth.available && !auth.loading && !auth.user) return <LoginScreen auth={auth} />;
+
+  if (!bundle || !summary || auth.loading) {
     return <div className="grid min-h-[100dvh] place-items-center text-ink-soft">טוען את העיר…</div>;
   }
 
