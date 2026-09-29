@@ -7,11 +7,14 @@ import type { DocumentStorage } from './ports';
  * (see supabase/migrations). Service-role keys and LLM/OCR/maps keys live only in Edge Functions.
  * Returns null when env vars are missing so the app runs on mock data.
  */
+let client: SupabaseClient | null | undefined;
+
 export function getSupabase(): SupabaseClient | null {
+  if (client !== undefined) return client;
   const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
   const anon = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
-  if (!url || !anon) return null;
-  return createClient(url, anon, { auth: { persistSession: true, autoRefreshToken: true } });
+  client = url && anon && import.meta.env.MODE !== 'test' ? createClient(url, anon, { auth: { persistSession: true, autoRefreshToken: true } }) : null;
+  return client;
 }
 
 export const DOCUMENTS_BUCKET = 'trip-documents';

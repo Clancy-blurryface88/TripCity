@@ -163,7 +163,7 @@ export function SettingsView({ bundle, prefs, onPrefs, onTest, city }: { city?: 
         )}
       </section>
 
-      <p className="text-center text-[11px] text-ink-faint">Trip City 0.6 · נתוני הדוגמה נשמרים רק במכשיר הזה</p>
+      <p className="text-center text-[11px] text-ink-faint">Trip City 0.7 · אחרי התחברות עם גוגל הטיול נשמר בענן ומסונכרן בין מכשירים</p>
     </div>
   );
 }

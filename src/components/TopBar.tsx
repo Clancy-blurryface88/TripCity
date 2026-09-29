@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import type { Trip } from '@/domain/types';
 import { formatTime, rangeLabel, eachDate } from '@/domain/time';
 import { he } from '@/i18n/he';
 import { Clock } from '@/ui/icons';
 
-export function TopBar({ trip }: { trip: Trip }) {
+export function TopBar({ trip, account }: { trip: Trip; account?: ReactNode }) {
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 30_000);
@@ -14,9 +14,11 @@ export function TopBar({ trip }: { trip: Trip }) {
   return (
     <header className="flex items-center justify-between gap-3 px-4 pb-2 pt-[max(0.75rem,env(safe-area-inset-top))]">
       <div className="flex min-w-0 items-center gap-3">
-        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand to-cat-hotels text-sm font-bold text-white shadow-soft" aria-hidden>
-          ד
-        </div>
+        {account ?? (
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand to-cat-hotels text-sm font-bold text-white shadow-soft" aria-hidden>
+            ד
+          </div>
+        )}
         <div className="min-w-0">
           <h1 className="flex items-center gap-1.5 text-xl font-extrabold leading-tight text-ink">
             פריז

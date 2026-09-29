@@ -45,5 +45,8 @@ export {
   Smartphone,
   WifiOff,
   Wifi,
+  Cloud,
+  CloudOff,
+  RefreshCw,
 } from 'lucide-react';
 export type { LucideIcon } from 'lucide-react';

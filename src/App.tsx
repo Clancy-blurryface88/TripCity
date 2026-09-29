@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CategoryId, TripBundle } from '@/domain/types';
 import { summarize } from '@/domain/progress';
 import { CATEGORY_ORDER } from '@/domain/categories';
@@ -31,6 +31,9 @@ import { SettingsView } from '@/components/SettingsView';
 import { OfflineBar, Toast, type ToastMsg } from '@/components/Toast';
 import { useReminderScheduler } from '@/pwa/useReminderScheduler';
 import { usePwa } from '@/pwa/usePwa';
+import { useAuth } from '@/services/auth';
+import { loadCloudTrip, saveCloudTrip } from '@/services/cloudStore';
+import { AccountButton, type SyncState } from '@/components/AccountButton';
 
 
 function readParams() {
@@ -80,15 +83,66 @@ export function App({ repository = defaultRepository, tripId = 'trip-paris-2027'
     const t = window.setTimeout(() => setToast(null), 6000);
     return () => window.clearTimeout(t);
   }, [toast]);
-  const onChecklist = useCallback(
-    (checklist: ChecklistItem[]) =>
-      setBundle((b) => {
-        if (!b) return b;
-        save(`checklist:${b.trip.id}`, checklist);
-        return { ...b, checklist };
-      }),
-    [],
-  );
+  const onChecklist = useCallback((checklist: ChecklistItem[]) => setBundle((b) => (b ? { ...b, checklist } : b)), []);
+
+  // Persistence: the whole trip is kept on this device, and in the cloud once the user signs in with Google.
+  const auth = useAuth();
+  const userId = auth.user?.id ?? null;
+  const loaded = bundle !== null;
+  const [sync, setSync] = useState<SyncState>('local');
+  const bundleRef = useRef(bundle);
+  bundleRef.current = bundle;
+  const cloudUser = useRef<string | null>(null); // user whose cloud copy has been loaded
+  const skipCloudSave = useRef(false);
+
+  useEffect(() => {
+    if (bundle) save(`bundle:${tripId}`, bundle);
+  }, [bundle, tripId]);
+
+  useEffect(() => {
+    cloudUser.current = null;
+    if (!userId || !loaded) {
+      setSync('local');
+      return;
+    }
+    let alive = true;
+    setSync('loading');
+    loadCloudTrip(userId, tripId)
+      .then(async (remote) => {
+        if (!alive) return;
+        if (remote?.trip) {
+          skipCloudSave.current = true;
+          setBundle(remote);
+        } else if (bundleRef.current) {
+          await saveCloudTrip(userId, tripId, bundleRef.current);
+        }
+        if (!alive) return;
+        cloudUser.current = userId;
+        setSync('saved');
+      })
+      .catch(() => alive && setSync('error'));
+    return () => {
+      alive = false;
+    };
+  }, [userId, loaded, tripId]);
+
+  useEffect(() => {
+    if (!bundle || !userId || cloudUser.current !== userId) return;
+    if (skipCloudSave.current) {
+      skipCloudSave.current = false;
+      return;
+    }
+    setSync('saving');
+    const t = window.setTimeout(() => {
+      saveCloudTrip(userId, tripId, bundle).then(
+        () => setSync('saved'),
+        () => setSync('error'),
+      );
+    }, 800);
+    return () => window.clearTimeout(t);
+  }, [bundle, userId, tripId]);
+
+  const account = <AccountButton auth={auth} sync={sync} />;
   const desktop = useMediaQuery('(min-width: 1024px)');
   const startAdd = useCallback((m: AddMethod | 'choose' = 'choose') => {
     setSelected(null);
@@ -111,7 +165,9 @@ export function App({ repository = defaultRepository, tripId = 'trip-paris-2027'
     let alive = true;
     repository.getTrip(tripId).then((b) => {
       if (!alive || !b) return;
-      const saved = loadRaw<ChecklistItem[]>(`checklist:${b.trip.id}`);
+      const local = loadRaw<TripBundle>(`bundle:${tripId}`);
+      if (local?.trip) return setBundle(local);
+      const saved = loadRaw<ChecklistItem[]>(`checklist:${b.trip.id}`); // pre-0.7 storage
       setBundle(Array.isArray(saved) ? { ...b, checklist: saved } : b);
     });
     return () => {
@@ -166,7 +222,7 @@ export function App({ repository = defaultRepository, tripId = 'trip-paris-2027'
     return (
       <div className="flex h-[100dvh] flex-col bg-[#eef4fb]">
         <div className="flex items-center justify-between pe-4">
-          <TopBar trip={bundle.trip} />
+          <TopBar trip={bundle.trip} account={account} />
           <ModeToggle mode={mode} onChange={setMode} />
         </div>
         <main className="grid min-h-0 flex-1 grid-cols-[3fr_2fr] gap-4 px-4 pb-4">
@@ -217,7 +273,7 @@ export function App({ repository = defaultRepository, tripId = 'trip-paris-2027'
     <div className="flex min-h-[100dvh] flex-col bg-[#eaf3ff]">
       <div className="sticky top-0 z-30 bg-gradient-to-b from-[#eaf3ff] via-[#eaf3ff]/90 to-transparent">
         <OfflineBar online={online} />
-        <TopBar trip={bundle.trip} />
+        <TopBar trip={bundle.trip} account={account} />
       </div>
       <Toast msg={toast} onClose={() => setToast(null)} />
       {nav === 'documents' ? (
