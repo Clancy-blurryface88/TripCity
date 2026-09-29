@@ -22,7 +22,6 @@ export const CITIES: CityInfo[] = [
   { key: 'prague', en: 'Prague', he: 'פראג', country: 'CZ', landmarkHe: 'טירת פראג', aliases: ['praha', 'prg'] },
   { key: 'budapest', en: 'Budapest', he: 'בודפשט', country: 'HU', landmarkHe: 'בניין הפרלמנט', aliases: ['bud'] },
   { key: 'athens', en: 'Athens', he: 'אתונה', country: 'GR', landmarkHe: 'האקרופוליס', aliases: ['athina', 'ath'] },
-  { key: 'dublin', en: 'Dublin', he: 'דבלין', country: 'IE', landmarkHe: 'בית המכס', aliases: ['dub'] },
   { key: 'brussels', en: 'Brussels', he: 'בריסל', country: 'BE', landmarkHe: 'האטומיום', aliases: ['bruxelles', 'bru'] },
   { key: 'copenhagen', en: 'Copenhagen', he: 'קופנהגן', country: 'DK', landmarkHe: 'בת הים הקטנה', aliases: ['cph'] },
   { key: 'stockholm', en: 'Stockholm', he: 'שטוקהולם', country: 'SE', landmarkHe: 'בניין העירייה', aliases: ['arn'] },
@@ -36,10 +35,8 @@ export const CITIES: CityInfo[] = [
   { key: 'bangkok', en: 'Bangkok', he: 'בנגקוק', country: 'TH', landmarkHe: 'וואט ארון', aliases: ['bkk', 'dmk'] },
   { key: 'beijing', en: 'Beijing', he: 'בייג׳ינג', country: 'CN', landmarkHe: 'העיר האסורה', aliases: ['בייג\'ינג', 'peking', 'pek', 'pkx'] },
   { key: 'washington', en: 'Washington D.C.', he: 'וושינגטון', country: 'US', landmarkHe: 'הקפיטול', aliases: ['washington', 'washington dc', 'washington d.c.', 'dc', 'iad', 'dca'] },
-  { key: 'ottawa', en: 'Ottawa', he: 'אוטווה', country: 'CA', landmarkHe: 'גבעת הפרלמנט', aliases: ['yow'] },
   { key: 'mexico-city', en: 'Mexico City', he: 'מקסיקו סיטי', country: 'MX', landmarkHe: 'ארמון האמנויות', aliases: ['ciudad de mexico', 'ciudad de méxico', 'cdmx', 'mex'] },
   { key: 'buenos-aires', en: 'Buenos Aires', he: 'בואנוס איירס', country: 'AR', landmarkHe: 'האובליסק', aliases: ['eze', 'aep'] },
-  { key: 'cairo', en: 'Cairo', he: 'קהיר', country: 'EG', landmarkHe: 'הפירמידות', aliases: ['cai'] },
   { key: 'canberra', en: 'Canberra', he: 'קנברה', country: 'AU', landmarkHe: 'בית הפרלמנט', aliases: ['cbr'] },
 ];
 

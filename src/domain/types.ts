@@ -42,8 +42,8 @@ export interface Trip {
 
 export type CityKey =
   | 'paris' | 'rome' | 'london' | 'amsterdam' | 'madrid' | 'lisbon' | 'berlin' | 'vienna' | 'prague' | 'budapest'
-  | 'athens' | 'dublin' | 'brussels' | 'copenhagen' | 'stockholm' | 'oslo' | 'warsaw' | 'bern' | 'helsinki' | 'reykjavik'
-  | 'tokyo' | 'seoul' | 'bangkok' | 'beijing' | 'washington' | 'ottawa' | 'mexico-city' | 'buenos-aires' | 'cairo' | 'canberra'
+  | 'athens' | 'brussels' | 'copenhagen' | 'stockholm' | 'oslo' | 'warsaw' | 'bern' | 'helsinki' | 'reykjavik'
+  | 'tokyo' | 'seoul' | 'bangkok' | 'beijing' | 'washington' | 'mexico-city' | 'buenos-aires' | 'canberra'
   | 'generic';
 
 export interface Flight {

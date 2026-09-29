@@ -6,10 +6,10 @@ import { zonedToIso } from './time';
 const CITY_TZ: Partial<Record<CityKey, string>> = {
   paris: 'Europe/Paris', rome: 'Europe/Rome', london: 'Europe/London', amsterdam: 'Europe/Amsterdam', madrid: 'Europe/Madrid',
   lisbon: 'Europe/Lisbon', berlin: 'Europe/Berlin', vienna: 'Europe/Vienna', prague: 'Europe/Prague', budapest: 'Europe/Budapest',
-  athens: 'Europe/Athens', dublin: 'Europe/Dublin', brussels: 'Europe/Brussels', copenhagen: 'Europe/Copenhagen', stockholm: 'Europe/Stockholm',
+  athens: 'Europe/Athens', brussels: 'Europe/Brussels', copenhagen: 'Europe/Copenhagen', stockholm: 'Europe/Stockholm',
   oslo: 'Europe/Oslo', warsaw: 'Europe/Warsaw', bern: 'Europe/Zurich', helsinki: 'Europe/Helsinki', reykjavik: 'Atlantic/Reykjavik',
   tokyo: 'Asia/Tokyo', seoul: 'Asia/Seoul', bangkok: 'Asia/Bangkok', beijing: 'Asia/Shanghai', washington: 'America/New_York',
-  ottawa: 'America/Toronto', 'mexico-city': 'America/Mexico_City', 'buenos-aires': 'America/Argentina/Buenos_Aires', cairo: 'Africa/Cairo', canberra: 'Australia/Sydney',
+  'mexico-city': 'America/Mexico_City', 'buenos-aires': 'America/Argentina/Buenos_Aires', canberra: 'Australia/Sydney',
 };
 const AIRPORT_TZ: Record<string, string> = { TLV: 'Asia/Jerusalem', ETM: 'Asia/Jerusalem', HFA: 'Asia/Jerusalem' };
 
